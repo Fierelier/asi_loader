@@ -48,6 +48,17 @@ FUNC(BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved),{
     (void)lpReserved;
     switch (ulReason) {
         case DLL_PROCESS_ATTACH: {
+			FILE *con_check = _tfopen(DLL_CONSOLE_FILENAME, TEXT("r"));
+			if (con_check) {
+				FILE *f;
+				fclose(con_check);
+				AllocConsole();
+				f = freopen("CONOUT$", "w", stdout);
+				f = freopen("CONOUT$", "w", stderr);
+				f = freopen("CONIN$", "r", stdin);
+				(void)f;
+			}
+			
             init_done_event = CreateEvent(NULL, TRUE, FALSE, NULL);
             DisableThreadLibraryCalls(hModule);
             HANDLE hThread = CreateThread(NULL, 0, init_thread_proc, NULL, 0, NULL);
