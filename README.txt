@@ -3,6 +3,13 @@ PE/IAT-patching.
 
 Currently implements the following DLLs:
 - dinput8.dll
+- d3d9.dll
+
+Set which DLL you want when building, example: DLL=d3d9
+
+---
+
+How it works:
 
 This summons a thread which runs soon after DllMain. It obtains a lock,
 which post-pones the original DLL's initialization function. The lock is
