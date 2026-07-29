@@ -1,24 +1,24 @@
 #if defined(GETINFO)
 	#undef GETINFO
-	#if !defined(DLL_MAIN_HEADER)
+	#if !defined(HOOKS_HEADER)
 		#undef IMPLEMENT
 		#define IMPLEMENT
 	#endif
 	
 	#ifdef IMPLEMENT
-		#define DLL_MAIN_IMPLEMENT
-		#define DLL_MAIN_C
+		#define HOOKS_IMPLEMENT
+		#define HOOKS_C
 		#undef IMPLEMENT
 	#endif
 #elif defined(FIVEHEAD)
 	#undef FIVEHEAD
-	#ifdef DLL_MAIN_IMPLEMENT
+	#ifdef HOOKS_IMPLEMENT
 		#undef IMPLEMENT
 		#define IMPLEMENT
 	#endif
 	#include "5head/5head.h"
 #else
-	#define DLL_MAIN_HEADER
-	#include "main.c"
-	#undef DLL_MAIN_HEADER
+	#define HOOKS_HEADER
+	#include "hooks.c"
+	#undef HOOKS_HEADER
 #endif

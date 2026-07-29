@@ -1,13 +1,13 @@
-#ifndef DLL_MAIN_C
+#ifndef MAIN_C
 #define GETINFO
 #include "main.h"
 
-#ifdef DLL_MAIN_C
+#ifdef MAIN_C
 	#define BUILDING_DLL
 #endif
 
-#ifndef DLL_MAIN_H
-#define DLL_MAIN_H
+#ifndef MAIN_H
+#define MAIN_H
 	// INCLUDES, MACROS, TYPEDEFS, STRUCTS, UNIONS, ...
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>

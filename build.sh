@@ -9,7 +9,7 @@ set -e
 mkdir -p bin obj
 
 cd src
-for i in *.c dll/$DLL/*.c; do
+for i in *.c; do
 	o="${i%.c}.o"
 	odir="$(dirname "$o")"
 	mkdir -p "../obj/$odir"
@@ -19,6 +19,6 @@ cd ..
 
 $CC $CFLAGS -Isrc -Isrc/dll/$DLL -Wall -Wextra -march=i486 -D_WIN32_WINNT=0x0400 -DWINVER=0x0400 $CFLAGS \
     -shared -o "bin/$DLL.dll" \
-    obj/*.o obj/dll/$DLL/*.o \
+    obj/*.o \
     -static-libgcc -static-libstdc++ \
     -Wl,--kill-at $LDFLAGS
