@@ -18,7 +18,7 @@ done
 cd ..
 
 $CC $CFLAGS -Isrc -Isrc/dll/$DLL -Wall -Wextra -march=i486 -D_WIN32_WINNT=0x0400 -DWINVER=0x0400 $CFLAGS \
-    -shared -o "bin/$DLL.dll" \
-    obj/*.o \
-    -static-libgcc -static-libstdc++ \
-    -Wl,--kill-at $LDFLAGS
+	-shared -o "bin/$DLL.dll" \
+	obj/*.o \
+	-static-libgcc -static-libstdc++ \
+	-Wl,--kill-at $LDFLAGS

@@ -25,29 +25,29 @@ VAR(HMODULE dll_module,= NULL);
 FUNCD(BOOL initialize_original_dll(void))
 #ifdef HOOKS_C
 {
-    TCHAR system_dir[MAX_PATH];
-    TCHAR system_path[MAX_PATH];
-    
-    // Get Windows system directory
-    GetSystemDirectory(system_dir, MAX_PATH);
-    
-    // Build path to original dinput8.dll
-    _sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TEXT("%s\\%s"), system_dir, DLL_FILENAME);
-    
-    // Load the original DLL from System32
-    dll_module = LoadLibrary(system_path);
-    if (!dll_module) {
-        _ftprintf(stderr, TEXT("[ASI Loader] ERROR - Could not load original DLL from system\n"));
-        _ftprintf(stderr, TEXT("[ASI Loader] Path: %s\n"), system_path);
-        return FALSE;
-    }
-    
-    _ftprintf(stderr, TEXT("[ASI Loader] Loaded original DLL from system\n"));
-    
-    // Get all original functions
-    #include "tools/func_og_get.h"
+	TCHAR system_dir[MAX_PATH];
+	TCHAR system_path[MAX_PATH];
+	
+	// Get Windows system directory
+	GetSystemDirectory(system_dir, MAX_PATH);
+	
+	// Build path to original dinput8.dll
+	_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TEXT("%s\\%s"), system_dir, DLL_FILENAME);
+	
+	// Load the original DLL from System32
+	dll_module = LoadLibrary(system_path);
+	if (!dll_module) {
+		_ftprintf(stderr, TEXT("[ASI Loader] ERROR - Could not load original DLL from system\n"));
+		_ftprintf(stderr, TEXT("[ASI Loader] Path: %s\n"), system_path);
+		return FALSE;
+	}
+	
+	_ftprintf(stderr, TEXT("[ASI Loader] Loaded original DLL from system\n"));
+	
+	// Get all original functions
+	#include "tools/func_og_get.h"
 	#include "db.h"
-    return TRUE;
+	return TRUE;
 }
 #endif
 
