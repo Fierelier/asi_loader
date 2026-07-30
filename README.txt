@@ -2,8 +2,11 @@ An experimental and small ASI loader for Windows games, without
 PE/IAT-patching.
 
 Currently implements the following DLLs:
-- dinput8.dll
+- d3d8.dll
 - d3d9.dll
+- ddraw.dll
+- dinput8.dll
+- opengl32.dll
 
 Set which DLL you want when building, example: DLL=d3d9
 
