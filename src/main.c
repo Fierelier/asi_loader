@@ -21,17 +21,9 @@
 
 // VARIABLES, TABLES, FUNCTIONS, ...
 FH_STATIC(FUNC(void initialize_asi_loader(void),{
-	_ftprintf(stderr, TEXT("[ASI Loader] Initializing ...\n"));
-
-	if (!initialize_original_dll()) {
-		_ftprintf(stderr, TEXT("[ASI Loader] Failed to initialize original DLL.\n"));
-		return;
-	}
-
-	_ftprintf(stderr, TEXT("[ASI Loader] Loading ASI files ...\n"));
+	if (!initialize_original_dll()) return;
 	load_all_asis();
-
-	_ftprintf(stderr, TEXT("[ASI Loader] Initialization complete\n"));
+	_ftprintf(stderr, TEXT("[ASI Loader] DONE!\n"));
 }))
 
 VAR(HANDLE init_done_event,= NULL);
@@ -43,7 +35,6 @@ FH_STATIC(FUNC(DWORD WINAPI init_thread_proc(LPVOID lpParam),{
 	return 0;
 }))
 
-// DLL entry point - minimal work only
 FUNC(BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved),{
 	(void)lpReserved;
 	switch (ulReason) {

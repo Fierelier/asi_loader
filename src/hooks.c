@@ -32,18 +32,17 @@ FUNCD(BOOL initialize_original_dll(void))
 	// Get Windows system directory
 	GetSystemDirectory(system_dir, MAX_PATH);
 	
-	// Build path to original dinput8.dll
+	// Build path to original DLL
 	_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TEXT("%s\\%s"), system_dir, DLL_FILENAME);
 	
-	// Load the original DLL from System32
+	// Load the original DLL
+	_ftprintf(stderr, TEXT("[ASI Loader] Loading system DLL ...\n"));
 	dll_module = LoadLibrary(system_path);
 	if (!dll_module) {
-		_ftprintf(stderr, TEXT("[ASI Loader] ERROR - Could not load original DLL from system\n"));
+		_ftprintf(stderr, TEXT("[ASI Loader] ERROR: Could not load original DLL from system!\n"));
 		_ftprintf(stderr, TEXT("[ASI Loader] Path: ") TCSCN TEXT("\n"), system_path);
 		return FALSE;
 	}
-	
-	_ftprintf(stderr, TEXT("[ASI Loader] Loaded original DLL from system\n"));
 	
 	// Get all original functions
 	#include "tools/func_og_get.h"

@@ -18,12 +18,11 @@
 // VARIABLES, TABLES, FUNCTIONS, ...
 FUNC(int load_asi(TCHAR * path),{
 	HMODULE asi = LoadLibrary(path);
+	_ftprintf(stderr, TEXT("[ASI Loader] LOADING ") TCSCN TEXT(" ...\n"), path);
 	if (!asi) {
-		_ftprintf(stderr, TEXT("[ASI Loader] Failed to load ") TCSCN TEXT("\n"), path);
+		_ftprintf(stderr, TEXT("[ASI Loader] ERROR: Load failed!"));
 		return FALSE;
 	}
-	
-	_ftprintf(stderr, TEXT("[ASI Loader] Loaded ") TCSCN TEXT("\n"), path);
 	return TRUE;
 })
 
