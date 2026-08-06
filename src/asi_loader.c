@@ -18,14 +18,14 @@
 // VARIABLES, TABLES, FUNCTIONS, ...
 FUNC(int load_asi(TCHAR * path),{
 	if (GetModuleHandle(path)) {
-		_ftprintf(stderr, TEXT("[ASI Loader] SKIPPING ") TCSCN TEXT(" (already loaded)\n"), path);
+		_ftprintf(stderr, TEXT("[ASI Loader] > SKIP ") TCSCN TEXT(" (already loaded)\n"), path);
 		return TRUE;
 	}
 	
 	HMODULE asi = LoadLibrary(path);
-	_ftprintf(stderr, TEXT("[ASI Loader] LOADING ") TCSCN TEXT(" ...\n"), path);
+	_ftprintf(stderr, TEXT("[ASI Loader] > LOAD ") TCSCN TEXT(" ...\n"), path);
 	if (!asi) {
-		_ftprintf(stderr, TEXT("[ASI Loader] ERROR: Load failed!"));
+		_ftprintf(stderr, TEXT("[ASI Loader] > ERROR: Load failed!"));
 		return FALSE;
 	}
 	return TRUE;

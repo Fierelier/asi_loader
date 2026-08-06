@@ -47,8 +47,7 @@ FUNCD(BOOL initialize_original_dll(void))
 	_ftprintf(stderr, TEXT("[ASI Loader] Loading ") TCSCN TEXT(" ...\n"), system_path);
 	dll_module = LoadLibrary(system_path);
 	if (!dll_module) {
-		_ftprintf(stderr, TEXT("[ASI Loader] ERROR: Could not load original DLL from system!\n"));
-		_ftprintf(stderr, TEXT("[ASI Loader] Path: ") TCSCN TEXT("\n"), system_path);
+		_ftprintf(stderr, TEXT("[ASI Loader] > ERROR: Could not load original DLL from system!\n"));
 		return FALSE;
 	}
 	
