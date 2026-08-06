@@ -1,3 +1,3 @@
 #include <d3d9.h>
-#define DLL_FILENAME TEXT("d3d9.dll")
-#define DLL_CONSOLE_FILENAME TEXT("d3d9.con")
+#define DLL_BASENAME TEXT("d3d9")
+#define DLL_EXTENSION TEXT(".dll")

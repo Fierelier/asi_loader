@@ -14,6 +14,9 @@
 	#include "includes.h"
 	#include "db.h"
 	#include "utils.h"
+	
+	#define DLL_FILENAME DLL_BASENAME DLL_EXTENSION
+	#define DLL_CONSOLE_FILENAME DLL_BASENAME TEXT(".con")
 #endif
 #define FIVEHEAD
 #include "hooks.h"

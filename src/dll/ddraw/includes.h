@@ -1,3 +1,3 @@
 #include <ddraw.h>
-#define DLL_FILENAME TEXT("ddraw.dll")
-#define DLL_CONSOLE_FILENAME TEXT("ddraw.con")
+#define DLL_BASENAME TEXT("ddraw")
+#define DLL_EXTENSION TEXT(".dll")
