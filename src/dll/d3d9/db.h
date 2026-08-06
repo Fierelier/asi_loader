@@ -2,7 +2,7 @@
 #define func_name Direct3DCreate9
 #define func_args_proto(F) \
 	F(UINT,SDKVersion)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HRESULT WINAPI

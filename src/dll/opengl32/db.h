@@ -2805,14 +2805,14 @@
 	F(HGLRC,arg1), \
 	F(HGLRC,arg2), \
 	F(UINT,arg3)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HGLRC WINAPI
 #define func_name wglCreateContext
 #define func_args_proto(F) \
 	F(HDC,arg1)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HGLRC WINAPI
@@ -2820,14 +2820,14 @@
 #define func_args_proto(F) \
 	F(HDC,arg1), \
 	F(int,arg2)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
 #define func_name wglDeleteContext
 #define func_args_proto(F) \
 	F(HGLRC,arg1)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2838,19 +2838,19 @@
 	F(int,arg3), \
 	F(UINT,arg4), \
 	F(LPLAYERPLANEDESCRIPTOR,arg5)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HGLRC WINAPI
 #define func_name wglGetCurrentContext
 #define func_args_proto(F)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HDC WINAPI
 #define func_name wglGetCurrentDC
 #define func_args_proto(F)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type int WINAPI
@@ -2861,14 +2861,14 @@
 	F(int,arg3), \
 	F(int,arg4), \
 	F(COLORREF *,arg5)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type PROC WINAPI
 #define func_name wglGetProcAddress
 #define func_args_proto(F) \
 	F(LPCSTR,arg1)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2876,7 +2876,7 @@
 #define func_args_proto(F) \
 	F(HDC,arg1), \
 	F(HGLRC,arg2)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2885,7 +2885,7 @@
 	F(HDC,arg1), \
 	F(int,arg2), \
 	F(WINBOOL,arg3)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type int WINAPI
@@ -2896,7 +2896,7 @@
 	F(int,arg3), \
 	F(int,arg4), \
 	F(CONST COLORREF *,arg5)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2904,7 +2904,7 @@
 #define func_args_proto(F) \
 	F(HGLRC,arg1), \
 	F(HGLRC,arg2)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2912,7 +2912,7 @@
 #define func_args_proto(F) \
 	F(HDC,arg1), \
 	F(UINT,arg2)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2922,7 +2922,7 @@
 	F(DWORD,arg2), \
 	F(DWORD,arg3), \
 	F(DWORD,arg4)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2932,7 +2932,7 @@
 	F(DWORD,arg2), \
 	F(DWORD,arg3), \
 	F(DWORD,arg4)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2946,7 +2946,7 @@
 	F(FLOAT,arg6), \
 	F(int,arg7), \
 	F(LPGLYPHMETRICSFLOAT,arg8)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2960,7 +2960,7 @@
 	F(FLOAT,arg6), \
 	F(int,arg7), \
 	F(LPGLYPHMETRICSFLOAT,arg8)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type int WINAPI
@@ -2968,7 +2968,7 @@
 #define func_args_proto(F) \
 	F(HDC,hdc), \
 	F(const PIXELFORMATDESCRIPTOR *,ppfd)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type int WINAPI
@@ -2978,14 +2978,14 @@
 	F(int,iPixelFormat), \
 	F(UINT,nBytes), \
 	F(LPPIXELFORMATDESCRIPTOR,ppfd)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type int WINAPI
 #define func_name wglGetPixelFormat
 #define func_args_proto(F) \
 	F(HDC,hdc)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
@@ -2994,19 +2994,19 @@
 	F(HDC,hdc), \
 	F(int,format), \
 	F(const PIXELFORMATDESCRIPTOR *,ppfd)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type WINBOOL WINAPI
 #define func_name wglSwapBuffers
 #define func_args_proto(F) \
 	F(HDC,hdc)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type PROC WINAPI
 #define func_name wglGetDefaultProcAddress
 #define func_args_proto(F) \
 	F(LPCSTR,lpszProc)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"

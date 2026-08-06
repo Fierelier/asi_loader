@@ -1,5 +1,4 @@
-An experimental and small ASI loader for Windows games, without
-PE/IAT-patching.
+An experimental and small ASI loader for Windows games.
 
 Currently implements the following DLLs:
 - d3d8.dll
@@ -18,13 +17,8 @@ on startup. This can be useful for debugging.
 
 How it works:
 
-This summons a thread which runs soon after DllMain. It obtains a lock,
-which post-pones the original DLL's initialization function. The lock is
-only released once all ASIs have been loaded.
-
-NOTE:
-
-Compared to other ASI loaders, this may have a race condition, since the
-game's main thread can run other things not related to the main DLL's
-initialization. This seems not to be a problem in my limited testing,
-but it certainly could be (?), depending on the game and amount of ASIs.
+The DLL looks at the stack frame of the main executable, and puts a
+trampoline after its current execution pointer. Result: The ASI loader's
+payload is executed right after the game's LoadLibrary call, inside the
+main thread. The instructions are restored to their default, and then
+the ASIs are loaded. After all that, we jump back into the game.

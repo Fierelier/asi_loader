@@ -4,7 +4,7 @@
 	F(GUID*,lpGUID), \
 	F(LPDIRECTDRAW*,lplpDD), \
 	F(IUnknown*,pUnkOuter)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
 
 #define func_type HRESULT WINAPI

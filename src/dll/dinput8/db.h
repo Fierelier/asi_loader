@@ -6,5 +6,5 @@
 	F(REFIID,riidltf), \
 	F(LPVOID*,ppvOut), \
 	F(LPUNKNOWN,punkOuter)
-#define func_body WaitForSingleObject(init_done_event, INFINITE);
+#define func_body
 #include "tools/func.h"
