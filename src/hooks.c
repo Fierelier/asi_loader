@@ -16,6 +16,7 @@
 	#include "utils.h"
 	
 	#define DLL_FILENAME DLL_BASENAME DLL_EXTENSION
+	#define DLL_FILENAME_HOOKED DLL_BASENAME TEXT("Hooked") DLL_EXTENSION
 	#define DLL_CONSOLE_FILENAME DLL_BASENAME TEXT(".con")
 #endif
 #define FIVEHEAD
@@ -32,14 +33,18 @@ FUNCD(BOOL initialize_original_dll(void))
 	TCHAR system_dir[MAX_PATH];
 	TCHAR system_path[MAX_PATH];
 	
-	// Get Windows system directory
-	GetSystemDirectory(system_dir, MAX_PATH);
-	
-	// Build path to original DLL
-	_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TEXT("%s\\%s"), system_dir, DLL_FILENAME);
+	// Try <name>Hooked.dll first
+	_tcscpy(system_path, DLL_FILENAME_HOOKED);
+	DWORD attrs = GetFileAttributes(system_path);
+	if (attrs == INVALID_FILE_ATTRIBUTES || (attrs & FILE_ATTRIBUTE_DIRECTORY)) {
+		// Get Windows system directory
+		GetSystemDirectory(system_dir, MAX_PATH);
+		// Build path to original DLL
+		_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TCSCN TEXT("\\") TCSCN, system_dir, DLL_FILENAME);
+	}
 	
 	// Load the original DLL
-	_ftprintf(stderr, TEXT("[ASI Loader] Loading system DLL ...\n"));
+	_ftprintf(stderr, TEXT("[ASI Loader] Loading ") TCSCN TEXT(" ...\n"), system_path);
 	dll_module = LoadLibrary(system_path);
 	if (!dll_module) {
 		_ftprintf(stderr, TEXT("[ASI Loader] ERROR: Could not load original DLL from system!\n"));

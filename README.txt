@@ -13,6 +13,9 @@ If a file with the same name of the DLL but with a .con extension is
 created (like dinput8.con), a console will be attached to the process
 on startup. This can be useful for debugging.
 
+If you place a <name>Hooked.dll next to loader's (like
+dinput8Hooked.dll), it will be chainloaded.
+
 ---
 
 How it works:
