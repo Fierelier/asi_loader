@@ -34,23 +34,37 @@ FUNC(int load_asi(TCHAR * path),{
 FUNC(void load_asis_from_dir(TCHAR * dir),{
 	struct _tfinddata_t fileinfo;
 	intptr_t handle;
-	TCHAR sz_pattern[MAX_PATH];
-	TCHAR sz_path[MAX_PATH];
 	
-	_sntprintf(sz_pattern, sizeof(sz_pattern) / sizeof(TCHAR), TCSCN TEXT("\\*.asi"), dir);
-	handle = _tfindfirst(sz_pattern, &fileinfo);
+	DWORD attr = GetFileAttributes(dir);
+	if (
+		(attr == INVALID_FILE_ATTRIBUTES) ||
+		(attr != (attr & FILE_ATTRIBUTE_DIRECTORY))
+	) {
+		return;
+	}
+	
+	TCHAR old_cd[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH - 2,old_cd);
+	
+	TCHAR script_dir[MAX_PATH];
+	SetCurrentDirectory(dir);
+	GetCurrentDirectory(MAX_PATH - 2,script_dir);
+	
+	handle = _tfindfirst(TEXT("*.asi"), &fileinfo);
 	if (handle == -1) {
+		SetCurrentDirectory(old_cd);
 		return;
 	}
 	
 	do {
 		if (!(fileinfo.attrib & _A_SUBDIR)) {
-			_sntprintf(sz_path, sizeof(sz_path) / sizeof(TCHAR), TCSCN TEXT("\\") TCSCN, dir, fileinfo.name);
-			load_asi(sz_path);
+			SetCurrentDirectory(script_dir);
+			load_asi(fileinfo.name);
 		}
 	} while (_tfindnext(handle, &fileinfo) == 0);
 	
 	_findclose(handle);
+	SetCurrentDirectory(old_cd);
 })
 
 FUNC(void load_all_asis(void),{
