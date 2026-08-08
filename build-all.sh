@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -e
 cd src/dll
 for dll in *; do
 	echo "* $dll ..."
