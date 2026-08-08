@@ -73,7 +73,13 @@ FUNC(BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved),{
 	(void)lpReserved;
 	switch (ulReason) {
 		case DLL_PROCESS_ATTACH: {
-			FILE *con_check = _tfopen(DLL_CONSOLE_FILENAME, TEXT("r"));
+			TCHAR basename[MAX_PATH];
+			TCHAR extension[MAX_PATH];
+			TCHAR console_filename[MAX_PATH];
+			get_dll_name_parts(basename, extension);
+			_sntprintf(console_filename, sizeof(console_filename) / sizeof(TCHAR), TCSCN TEXT(".con"), basename);
+			
+			FILE *con_check = _tfopen(console_filename, TEXT("r"));
 			if (con_check) {
 				FILE *f;
 				fclose(con_check);

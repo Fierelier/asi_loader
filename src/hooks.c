@@ -14,10 +14,6 @@
 	#include "includes.h"
 	#include "db.h"
 	#include "utils.h"
-	
-	#define DLL_FILENAME DLL_BASENAME DLL_EXTENSION
-	#define DLL_FILENAME_HOOKED DLL_BASENAME TEXT("Hooked") DLL_EXTENSION
-	#define DLL_CONSOLE_FILENAME DLL_BASENAME TEXT(".con")
 #endif
 #define FIVEHEAD
 #include "hooks.h"
@@ -32,15 +28,21 @@ FUNCD(BOOL initialize_original_dll(void))
 {
 	TCHAR system_dir[MAX_PATH];
 	TCHAR system_path[MAX_PATH];
+	TCHAR basename[MAX_PATH];
+	TCHAR extension[MAX_PATH];
+	TCHAR dll_filename[MAX_PATH];
+	
+	get_dll_name_parts(basename, extension);
+	_sntprintf(dll_filename, sizeof(dll_filename) / sizeof(TCHAR), TCSCN TCSCN, basename, extension);
 	
 	// Try <name>Hooked.dll first
-	_tcscpy(system_path, DLL_FILENAME_HOOKED);
+	_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TCSCN TEXT("Hooked") TCSCN, basename, extension);
 	DWORD attrs = GetFileAttributes(system_path);
 	if (attrs == INVALID_FILE_ATTRIBUTES || (attrs & FILE_ATTRIBUTE_DIRECTORY)) {
 		// Get Windows system directory
 		GetSystemDirectory(system_dir, MAX_PATH);
 		// Build path to original DLL
-		_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TCSCN TEXT("\\") TCSCN, system_dir, DLL_FILENAME);
+		_sntprintf(system_path, sizeof(system_path) / sizeof(TCHAR), TCSCN TEXT("\\") TCSCN, system_dir, dll_filename);
 	}
 	
 	// Load the original DLL
