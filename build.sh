@@ -2,7 +2,7 @@
 set -e
 : ${CC:=i686-w64-mingw32-gcc}
 : ${CFLAGS:="-Os -DUNICODE -D_UNICODE"} # For WIN9X, remove "-DUNICODE -D_UNICODE"
-: ${LDFLAGS:=""}
+: ${LDFLAGS:="-static-libgcc -static-libstdc++ -Wl,--kill-at"}
 : ${DLL:=dinput8}
 
 # Build
@@ -20,5 +20,4 @@ cd ..
 $CC $CFLAGS -Isrc -Isrc/dll/$DLL -Wall -Wextra -march=i486 -D_WIN32_WINNT=0x0400 -DWINVER=0x0400 $CFLAGS \
 	-shared -o "bin/$DLL.dll" \
 	obj/*.o \
-	-static-libgcc -static-libstdc++ \
-	-Wl,--kill-at $LDFLAGS
+	$LDFLAGS
