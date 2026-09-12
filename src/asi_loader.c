@@ -16,6 +16,13 @@
 #include "asi_loader.h"
 
 // VARIABLES, TABLES, FUNCTIONS, ...
+
+// Some ASIs built against Ultimate ASI Loader look this up to be able to
+// gauge whether their InitializeASI() export is going to be called.
+FUNC(BOOL WINAPI IsUltimateASILoader(void),{
+	return TRUE;
+})
+
 FUNC(int load_asi(TCHAR * path),{
 	if (GetModuleHandle(path)) {
 		_ftprintf(stderr, TEXT("[ASI Loader] > SKIP: ") TCSCN TEXT(" (already loaded)\n"), path);
@@ -28,6 +35,13 @@ FUNC(int load_asi(TCHAR * path),{
 		_ftprintf(stderr, TEXT("[ASI Loader] > ERROR: Load failed!"));
 		return FALSE;
 	}
+	
+	void (WINAPI * initialize_asi)(void) = (void (WINAPI *)(void))GetProcAddress(asi, "InitializeASI");
+	if (initialize_asi) {
+		_ftprintf(stderr, TEXT("[ASI Loader] > InitializeASI() ...\n"));
+		initialize_asi();
+	}
+	
 	return TRUE;
 })
 
