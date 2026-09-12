@@ -21,3 +21,5 @@ $CC $CFLAGS -Isrc -Isrc/dll/$DLL -Wall -Wextra -march=i486 -D_WIN32_WINNT=0x0400
 	-shared -o "bin/$DLL.dll" \
 	obj/*.o \
 	$LDFLAGS
+
+rm -f bin/$DLL.def || true
