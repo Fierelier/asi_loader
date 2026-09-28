@@ -20,9 +20,9 @@
 
 // VARIABLES, TABLES, FUNCTIONS, ...
 FUNC(HMODULE get_self_module(void),{
-	HMODULE h = NULL;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCTSTR)&get_self_module, &h);
-	return h;
+	MEMORY_BASIC_INFORMATION mbi;
+	if (!VirtualQuery((LPCVOID)&get_self_module, &mbi, sizeof(mbi))) return NULL;
+	return (HMODULE)mbi.AllocationBase;
 })
 
 FUNC(void get_dll_name_parts(TCHAR *basename, TCHAR *extension),{
