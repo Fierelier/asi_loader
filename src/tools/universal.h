@@ -19,3 +19,4 @@
 #define func_call_args func_args_proto(func_call_arg)
 
 #undef func_tool
+#undef func_fwd_tool
