@@ -15,6 +15,7 @@
 	#include "asi_loader.h"
 	#include "hooks.h"
 	#include "entry_hook.h"
+	#include "stack_hook.h"
 	#include "main.h"
 #endif
 #define FIVEHEAD
@@ -28,7 +29,6 @@ FH_STATIC(FUNC(void initialize_asi_loader(void),{
 }))
 
 FUNC(BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved),{
-	(void)lpReserved;
 	switch (ulReason) {
 		case DLL_PROCESS_ATTACH: {
 			TCHAR basename[MAX_PATH];
@@ -49,7 +49,13 @@ FUNC(BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved),{
 			}
 			
 			DisableThreadLibraryCalls(hModule);
-			install_entry_point_hook(initialize_asi_loader);
+			
+			if (lpReserved == NULL) {
+				if (!install_stack_return_hook(initialize_asi_loader))
+					install_entry_point_hook(initialize_asi_loader);
+			} else {
+				install_entry_point_hook(initialize_asi_loader);
+			}
 			break;
 		}
 		case DLL_PROCESS_DETACH:

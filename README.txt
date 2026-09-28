@@ -20,8 +20,22 @@ dinput8Hooked.dll), it will be chainloaded.
 
 How it works:
 
-The DLL looks at the stack frame of the main executable, and puts a
-trampoline after its current execution pointer. Result: The ASI loader's
-payload is executed right after the game's LoadLibrary call, inside the
-main thread. The instructions are restored to their default, and then
-the ASIs are loaded. After all that, we jump back into the game.
+The loader can't simply run inside DllMain, since the loader lock would
+cause a deadlock on LoadLibrary. So we defer out payload to happen in
+the caller's thread by making a trampoline. This is more complicated,
+but superior to using a separate thread, as it guarantees our code will
+run as soon as possible, with no race conditions.
+
+There is two methods under which this can happen...
+
+Static / implicit load (lpReserved != NULL):
+
+Since the executable hasn't reached its entry point yet, we can patch it
+directly, to run our payload.
+
+Dynamic load (lpReserved == NULL):
+
+When our library is loaded dynamically, the approach is different. The
+entry point has already been executed, so we can't patch it anymore.
+Instead, we follow the stack frame to find a viable return address,
+ignoring system DLLs (detected by path), and we patch that instead.
