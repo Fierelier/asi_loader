@@ -9,6 +9,7 @@
 	#include <windows.h>
 	#include <stdio.h>
 	#include <tchar.h>
+	#include "asi_loader.h"
 #endif
 #define FIVEHEAD
 #include "entry_hook.h"

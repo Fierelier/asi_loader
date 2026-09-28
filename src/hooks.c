@@ -14,6 +14,7 @@
 	#include "includes.h"
 	#include "db.h"
 	#include "utils.h"
+	#include "asi_loader.h"
 #endif
 #define FIVEHEAD
 #include "hooks.h"
@@ -46,10 +47,10 @@ FUNCD(BOOL initialize_original_dll(void))
 	}
 	
 	// Load the original DLL
-	_ftprintf(stderr, TEXT("[ASI Loader] Loading ") TCSCN TEXT(" ...\n"), system_path);
+	asi_log(TEXT("[ASI Loader] Loading ") TCSCN TEXT(" ...\n"), system_path);
 	dll_module = LoadLibrary(system_path);
 	if (!dll_module) {
-		_ftprintf(stderr, TEXT("[ASI Loader] > ERROR: Could not load original DLL from system!\n"));
+		asi_log(TEXT("[ASI Loader] > ERROR: Could not load original DLL from system!\n"));
 		return FALSE;
 	}
 	

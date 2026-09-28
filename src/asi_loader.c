@@ -23,7 +23,7 @@
 // VARIABLES, TABLES, FUNCTIONS, ...
 VAR(void (*asi_loader_logger)(const TCHAR *message),= NULL);
 
-FH_STATIC(FUNC(void asi_log(const TCHAR *format, ...),{
+FUNC(void asi_log(const TCHAR *format, ...),{
 	TCHAR message[MAX_PATH + 64];
 	size_t length;
 	va_list arguments;
@@ -40,7 +40,7 @@ FH_STATIC(FUNC(void asi_log(const TCHAR *format, ...),{
 	length = _tcslen(message);
 	if (length && message[length - 1] == TEXT('\n')) message[length - 1] = 0;
 	asi_loader_logger(message);
-}))
+})
 
 // Some ASIs built against Ultimate ASI Loader look this up to be able to
 // gauge whether their InitializeASI() export is going to be called.
