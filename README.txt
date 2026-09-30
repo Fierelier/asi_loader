@@ -1,20 +1,38 @@
-An experimental and small ASI loader for Windows games.
+A small ASI loader for Windows games.
 
-Currently implements the following DLLs:
+Builds one DLL that exports the union of every supported system DLL:
 - d3d8.dll
 - d3d9.dll
 - ddraw.dll
 - dinput8.dll
 - opengl32.dll
 
-Set which DLL you want when building, example: DLL=d3d9
+Rename the resulting DLL into what the game uses.
 
-If a file with the same name of the DLL but with a .con extension is
-created (like dinput8.con), a console will be attached to the process
-on startup. This can be useful for debugging.
+---
 
-If you place a <name>Hooked.dll next to loader's (like
-dinput8Hooked.dll), it will be chainloaded.
+Additional functionality:
+
+* If you place a <name>Hooked.dll next to loader's (like dinput8Hooked.dll),
+it will be chainloaded instead of the system DLL.
+
+* If you place a file with the same name as the DLL with a .con extension next
+to it (like dinput8.con) a console will be attached to the process. In it, you
+will see output of asi_loader, and anything else that might print.
+
+---
+
+How to build:
+
+You need a UNIX shell like provided by busybox-w32, and compiler for Windows
+executables, like mingw-lite or tcc, or just plain MinGW, if you're
+cross-compiling from Linux.
+
+  ./build.sh          # 32-bit, UNICODE
+  ./build-ansi.sh     # 32-bit, WIN9X-friendly (ANSI)
+  ./build-x64.sh      # 64-bit, UNICODE
+
+Output is bin/asi_loader.dll.
 
 ---
 

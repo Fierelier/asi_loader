@@ -1,0 +1,5 @@
+	#include "d3d8.h"
+	#include "d3d9.h"
+	#include "ddraw.h"
+	#include "dinput8.h"
+	#include "opengl32.h"

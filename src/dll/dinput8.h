@@ -1,0 +1,1 @@
+	FWD(DirectInput8Create)
