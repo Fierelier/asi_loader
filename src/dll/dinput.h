@@ -1,0 +1,7 @@
+	FWD(DirectInputCreateA)
+	FWD(DirectInputCreateEx)
+	FWD(DirectInputCreateW)
+	FWD(DllCanUnloadNow)
+	FWD(DllGetClassObject)
+	FWD(DllRegisterServer)
+	FWD(DllUnregisterServer)

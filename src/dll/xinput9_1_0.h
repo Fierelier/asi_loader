@@ -1,0 +1,5 @@
+	FWD(DllMain)
+	FWD(XInputGetCapabilities)
+	FWD(XInputGetDSoundAudioDeviceGuids)
+	FWD(XInputGetState)
+	FWD(XInputSetState)

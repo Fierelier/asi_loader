@@ -1,11 +1,7 @@
 A small ASI loader for Windows games.
 
-Builds one DLL that exports the union of every supported system DLL:
-- d3d8.dll
-- d3d9.dll
-- ddraw.dll
-- dinput8.dll
-- opengl32.dll
+Builds one DLL that exports the union of every supported system DLL. To see
+which DLL exports are available, look in src/dll.
 
 Rename the resulting DLL into what the game uses.
 

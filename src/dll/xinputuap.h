@@ -1,0 +1,8 @@
+	FWD(DllMain)
+	FWD(XInputEnable)
+	FWD(XInputGetAudioDeviceIds)
+	FWD(XInputGetBatteryInformation)
+	FWD(XInputGetCapabilities)
+	FWD(XInputGetKeystroke)
+	FWD(XInputGetState)
+	FWD(XInputSetState)
