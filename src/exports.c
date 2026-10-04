@@ -21,6 +21,12 @@ static void write_thunk(unsigned char *slot, void *target) {
 
 void exports_bind(HMODULE real_module) {
 	unsigned long i;
-	for (i = 0; i < export_count; ++i)
-		write_thunk(export_table[i].thunk, (void *)GetProcAddress(real_module, export_table[i].name));
+	MEMORY_BASIC_INFORMATION mbi;
+	HMODULE self;
+	VirtualQuery((void *)exports_bind, &mbi, sizeof(mbi));
+	self = (HMODULE)mbi.AllocationBase;
+	for (i = 0; i < export_count; ++i) {
+		unsigned char *slot = (unsigned char *)GetProcAddress(self, export_table[i].name);
+		if (slot) write_thunk(slot, (void *)GetProcAddress(real_module, export_table[i].name));
+	}
 }
