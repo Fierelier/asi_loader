@@ -1,6 +1,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <string.h>
+#include <tchar.h>
+#include "exports.h"
 #include "thunks.h"
 
 static void write_thunk(unsigned char *slot, void *target) {
@@ -19,14 +21,31 @@ static void write_thunk(unsigned char *slot, void *target) {
 	FlushInstructionCache(GetCurrentProcess(), slot, THUNK_SIZE);
 }
 
-void exports_bind(HMODULE real_module) {
+static int dll_name_matches(const TCHAR *a, const char *b) {
+	for (; *a && *b; ++a, ++b) {
+		TCHAR ca = *a;
+		TCHAR cb = (unsigned char)*b;
+		if (ca >= 'A' && ca <= 'Z') ca += 'a' - 'A';
+		if (cb >= 'A' && cb <= 'Z') cb += 'a' - 'A';
+		if (ca != cb) return 0;
+	}
+	return !*a && !*b;
+}
+
+void exports_bind(HMODULE real_module, const TCHAR *dll_filename) {
 	unsigned long i;
 	MEMORY_BASIC_INFORMATION mbi;
 	HMODULE self;
 	VirtualQuery((void *)exports_bind, &mbi, sizeof(mbi));
 	self = (HMODULE)mbi.AllocationBase;
 	for (i = 0; i < export_count; ++i) {
-		unsigned char *slot = (unsigned char *)GetProcAddress(self, export_table[i].name);
-		if (slot) write_thunk(slot, (void *)GetProcAddress(real_module, export_table[i].name));
+		const export_entry *entry = &export_table[i];
+		void *target = (void *)GetProcAddress(real_module, entry->name);
+		unsigned char *slot = (unsigned char *)GetProcAddress(self, entry->name);
+		if (slot) write_thunk(slot, target);
+		if (entry->ordinal && dll_name_matches(dll_filename, entry->dll)) {
+			slot = (unsigned char *)GetProcAddress(self, (LPCSTR)(size_t)entry->ordinal);
+			if (slot) write_thunk(slot, target);
+		}
 	}
 }

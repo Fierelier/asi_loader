@@ -38,15 +38,25 @@ static int emit(const unsigned char *b, unsigned long len, FILE *o) {
 	if (!e || e + 0x24 > len) return -1;
 
 	unsigned long cnt = rd32(b + e + 0x18);
+	unsigned long base = rd32(b + e + 0x10);
 	unsigned long no = rva2off(b, len, so, nsec, rd32(b + e + 0x20));
-	if (!no) return -1;
+	unsigned long oo = rva2off(b, len, so, nsec, rd32(b + e + 0x24));
+	unsigned long dn = rva2off(b, len, so, nsec, rd32(b + e + 0x0C));
+	if (!no || !oo) return -1;
+
+	if (dn && dn < len) {
+		const char *c;
+		fprintf(o, "#undef dllname\n#define dllname \"");
+		for (c = (const char *)(b + dn); *c; ++c) fputc(*c >= 'A' && *c <= 'Z' ? *c + 32 : *c, o);
+		fprintf(o, "\"\n");
+	}
 
 	unsigned long i;
 	int w = 0;
 	for (i = 0; i < cnt; ++i) {
-		if (no + i * 4 + 4 > len) break;
+		if (no + i * 4 + 4 > len || oo + i * 2 + 2 > len) break;
 		unsigned long s = rva2off(b, len, so, nsec, rd32(b + no + i * 4));
-		if (s && s < len) { fprintf(o, "\tFWD(%s)\n", (const char *)(b + s)); ++w; }
+		if (s && s < len) { fprintf(o, "\tFWD(%lu, %s)\n", base + rd16(b + oo + i * 2), (const char *)(b + s)); ++w; }
 	}
 	return w;
 }

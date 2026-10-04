@@ -35,6 +35,6 @@ BOOL initialize_original_dll(void) {
 		return FALSE;
 	}
 
-	exports_bind(dll_module);
+	exports_bind(dll_module, dll_filename);
 	return TRUE;
 }
